@@ -1,4 +1,4 @@
-<h1>BetterMSG</h1>
+<h1 align="center">BetterMSG</h1>
 <h2>A Simple MSG-Plugin for your Minecraft Server!</h2>
 
 <h2>Permissions</h2>
