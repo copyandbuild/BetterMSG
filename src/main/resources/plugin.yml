@@ -1,0 +1,14 @@
+name: BetterMSG
+version: '${project.version}'
+main: dev.larrox.bettermsg.BetterMSG
+api-version: '1.20'
+commands:
+  msg:
+    permission: BetterMSG.use
+    description: Sende geheim eine Nachricht an einen Spieler
+    usage: /msg <Spieler> <Nachricht>
+    aliases:
+      - whisper
+      - w
+      - dm
+      - pm
