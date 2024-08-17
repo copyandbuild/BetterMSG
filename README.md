@@ -7,6 +7,10 @@
 BetterMSG.use: Allow to use the /msg command
 
 BetterMSG.color: Allow to use colorcodes in the msg's
+
+BetterMSG.reply: Allow to use /r([e]ply)
+
+BetterMSG.reload: Allow to Reload the Plugin /rlmsg | The Plugin will Still Work, on /rlbettermsg
 ```
 
 <h2>Versions</h2>
@@ -24,3 +28,12 @@ Coded in: 1.20
 /w
 /dm
 /pm
+/tell
+/reply
+/rply
+/antworten
+/antworten
+/rlmsg
+/rlbettermsg
+/reloadbettermsg
+/reloadmsg
