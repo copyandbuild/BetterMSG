@@ -8,13 +8,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
 import java.util.UUID;
 
-public class MSGCommand implements CommandExecutor {
+public class ReplyCommand implements CommandExecutor {
 
     private static final String COLOR_PERMISSION = "bettermsg.color";
-    private static final HashMap<UUID, UUID> lastMessageMap = new HashMap<>();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -27,25 +25,27 @@ public class MSGCommand implements CommandExecutor {
         Player player = (Player) sender;
         String prefix = BetterMSG.getInstance().getMessagePrefix();
 
-        if (args.length == 0) {
-            player.sendMessage(prefix + "Benutze: /msg <Spieler> <Nachricht>");
+        UUID lastMessagedUUID = MSGCommand.getLastMessaged(player.getUniqueId());
+
+        if (lastMessagedUUID == null) {
+            player.sendMessage(prefix + "Du hast niemanden, dem du antworten kannst.");
             return true;
         }
 
-        if (args.length < 2) {
-            player.sendMessage(prefix + "Benutze: /msg <Spieler> <Nachricht>");
-            return true;
-        }
-
-        Player target = Bukkit.getPlayer(args[0]);
+        Player target = Bukkit.getPlayer(lastMessagedUUID);
 
         if (target == null) {
-            player.sendMessage(prefix + "Spieler nicht gefunden!");
+            player.sendMessage(prefix + "Der Spieler, dem du antworten möchtest, ist nicht online.");
+            return true;
+        }
+
+        if (args.length == 0) {
+            player.sendMessage(prefix + "Benutze: /reply <Nachricht>");
             return true;
         }
 
         StringBuilder messageBuilder = new StringBuilder();
-        for (int i = 1; i < args.length; i++) {
+        for (int i = 0; i < args.length; i++) {
             messageBuilder.append(args[i]);
             if (i < args.length - 1) {
                 messageBuilder.append(" ");
@@ -60,14 +60,6 @@ public class MSGCommand implements CommandExecutor {
         target.sendMessage("§8[§a" + player.getName() + " §8-> §eDir§8] §7" + message);
         player.sendMessage("§8[§aDu §8-> §e" + target.getName() + "§8] §7" + message);
 
-        // Speichert den letzten Empfänger
-        lastMessageMap.put(player.getUniqueId(), target.getUniqueId());
-        lastMessageMap.put(target.getUniqueId(), player.getUniqueId());
-
         return true;
-    }
-
-    public static UUID getLastMessaged(UUID playerUUID) {
-        return lastMessageMap.get(playerUUID);
     }
 }
