@@ -3,11 +3,12 @@ version: '${project.version}'
 main: dev.larrox.bettermsg.BetterMSG
 api-version: '1.20'
 author: Larrox
+folia-supported: true
 commands:
   msg:
     permission: BetterMSG.use
-    description: Sende geheim eine Nachricht an einen Spieler
-    usage: /msg <Spieler> <Nachricht>
+    description: send a private message to a player
+    usage: /msg <Player> <Message>
     aliases:
       - whisper
       - w
@@ -16,7 +17,7 @@ commands:
       - tell
   reply:
     permission: BetterMSG.reply
-    description: Antworte schnell auf die Letzte nachricht die dir gesendet wurde
+    description: fast reply command
     usage: /reply <nachricht>
     aliases:
       - r
@@ -25,7 +26,7 @@ commands:
       - anwser
   reloadmsg:
     permission: BetterMSG.reload
-    description: Lade die config.yml neu
+    description: reload the config.yml
     usage: /reloadmsg
     aliases:
       - rlmsg

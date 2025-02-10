@@ -29,7 +29,11 @@ public final class BetterMSG extends JavaPlugin {
         return instance;
     }
 
-    public String getMessagePrefix() {
-        return getConfig().getString("messages.prefix");
+    public String getConfigMessage(String path) {
+        return getConfig().getString("messages." + path);
+    }
+
+    public String getConfigPerm(String path) {
+        return getConfig().getString("permission." + path);
     }
 }

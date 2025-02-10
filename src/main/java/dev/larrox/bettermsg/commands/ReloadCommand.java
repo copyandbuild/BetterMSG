@@ -11,12 +11,12 @@ public class ReloadCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (sender.hasPermission("bettermsg.reload")) {
+        if (sender.hasPermission(BetterMSG.getInstance().getConfigPerm("color"))) {
             BetterMSG.getInstance().reloadConfig();
-            sender.sendMessage("§aDie Konfiguration wurde erfolgreich neu geladen.");
+            sender.sendMessage(BetterMSG.getInstance().getConfigMessage("config-reload-success"));
             return true;
         } else {
-            sender.sendMessage("§cDu hast keine Berechtigung, diesen Befehl auszuführen.");
+            sender.sendMessage(BetterMSG.getInstance().getConfigMessage("no-permission"));
             return true;
         }
     }
