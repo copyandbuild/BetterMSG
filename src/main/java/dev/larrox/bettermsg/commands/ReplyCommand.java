@@ -14,68 +14,69 @@ import java.util.UUID;
 
 public class ReplyCommand implements CommandExecutor {
 
-    private static final String COLOR_PERMISSION = BetterMSG.getInstance().getConfigPerm("color");
-    private static Util util;
+    private final String COLOR_PERMISSION = BetterMSG.getInstance().getConfig().getString("permissions.use-color");
+    private final Util util;
+    private final BetterMSG betterMSG;
+
+    public ReplyCommand(BetterMSG betterMSG, Util util) {
+        this.betterMSG = betterMSG;
+        this.util = util;
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        String playersonly = getConfigMessage("players-only");
-        String prefix = getConfigMessage("prefix");
-        String Use = getConfigMessage("use");
-        String Player = getConfigMessage("player");
-        String Message = getConfigMessage("Nachricht");
-        String notfound = getConfigMessage("not-found");
-        String to = getConfigMessage("to");
-        String from = getConfigMessage("from");
-
-        if (!(sender instanceof Player)) {
-            sender.sendMessage("Du musst ein Spieler sein, um diesen Command auszuführen");
-            return true;
-        }
-
-        Player player = (Player) sender;
-
-        UUID lastMessagedUUID = MSGCommand.getLastMessaged(player.getUniqueId());
-
-        if (lastMessagedUUID == null) {
-            player.sendMessage(prefix + Player + notfound);
-            return true;
-        }
-
-        Player target = Bukkit.getPlayer(lastMessagedUUID);
-
-        if (target == null) {
-            player.sendMessage(prefix + Player + notfound);
+        if (!(sender instanceof Player player)) {
+            sender.sendMessage(util.getMessage("messages.players-only"));
             return true;
         }
 
         if (args.length == 0) {
-            player.sendMessage(prefix + Use +"§8: /msg <"+Player+"> <"+Message+">");
+            player.sendMessage(util.getMessage("messages.prefix") + util.getMessage("messages.use-reply"));
             return true;
         }
 
-        StringBuilder messageBuilder = new StringBuilder();
-        for (int i = 0; i < args.length; i++) {
-            messageBuilder.append(args[i]);
-            if (i < args.length - 1) {
-                messageBuilder.append(" ");
-            }
+        UUID lastMessagedUUID = MSGCommand.getLastMessaged(player.getUniqueId());
+        if (lastMessagedUUID == null) {
+            player.sendMessage(util.getMessage("messages.prefix") + util.getMessage("messages.nothing-to-reply"));
+            return true;
         }
-        String message = messageBuilder.toString();
 
+        Player target = Bukkit.getPlayer(lastMessagedUUID);
+        if (target == null || !target.isOnline()) {
+            player.sendMessage(util.getMessage("messages.prefix") + util.getMessage("messages.not-found")
+                    .replace("%to%", "Unknown"));
+            return true;
+        }
+
+        String message = String.join(" ", args);
         if (player.hasPermission(COLOR_PERMISSION)) {
             message = ChatColor.translateAlternateColorCodes('&', message);
         }
 
-        target.sendMessage("§8[§a" + util.getInstance().getPlayerName() + " §8-> §e"+to+"§8] §7" + message);
+        String senderName = util.getPlayerName(player);
+        String targetName = util.getPlayerName(target);
+
+        String targetFormat = util.getMessage("messages.target-msg");
+        target.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                targetFormat.replace("%from%", senderName)
+                        .replace("%to%", targetName)
+                        .replace("%prefix%", util.getMessage("messages.prefix"))
+                        .replace("%message%", message)));
+
         target.playSound(target.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
 
-        player.sendMessage("§8[§a"+from+" §8-> §e" + util.getInstance().getPlayerName() + "§8] §7" + message);
+        String senderFormat = util.getMessage("messages.sender-msg");
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                senderFormat.replace("%from%", senderName)
+                        .replace("%to%", targetName)
+                        .replace("%prefix%", util.getMessage("messages.prefix"))
+                        .replace("%message%", message)));
+
+        util.lastMessageMap.put(player.getUniqueId(), target.getUniqueId());
+        util.lastMessageMap.put(target.getUniqueId(), player.getUniqueId());
+
 
         return true;
-    }
-    public String getConfigMessage(String path) {
-        return util.getConfigMessage(path);
     }
 }
