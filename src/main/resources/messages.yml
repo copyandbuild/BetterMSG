@@ -1,0 +1,22 @@
+messages:
+  prefix: "&8[&aBetterMSG&8] &r"
+  players-only: "&cThis Command can only be executed by players."
+  use: "&cUsage: /msg <Player> <Message>"
+  not-found: "&cPlayer &e%to% &cnot found."
+  no-permission: "&cYou don't have permission to use this command."
+  use-reply: "&c/reply <Message>"
+  nothing-to-reply: "&cYou have no player to reply to."
+  invalid-reload-option: "&cInvalid reload option. Use 'all', 'config' or 'allmessages'."
+  config-reload-success: "&aConfiguration reloaded successfully."
+
+  # Available placeholders:
+    # %from% - The player who sent the message
+    # %to% - The player who received the message
+    # %message% - The content of the message
+    # %prefix% - The prefix (defined in this file)
+
+  # the message sent to the target player in the /msg command
+  target-msg: "&8[&a%from% &8-> &e%to%&8] &7%message%"
+
+  # the message sent to the user that executes the /msg command
+  sender-msg: "&8[&a%from% &8-> &e%to%&8] &7%message%"

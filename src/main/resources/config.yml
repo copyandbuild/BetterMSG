@@ -1,22 +1,10 @@
-messages:
-  prefix: "§8[§aMSG§8] §7"
-  players-only: "Du musst ein Spieler sein, um diesen Befehl auszuführen."
-  use: "Benutze"
-  player: "Spieler"
-  message: "Nachricht"
-  not-found: "nicht gefunden."
-  config-reload-success: "§aDie Konfiguration wurde erfolgreich neu geladen."
-  no-permission: "§cDu hast keine Berechtigung, diesen Befehl auszuführen."
-  nothing-to-reply: "Du hast niemanden, dem du antworten kannst."
-
-# This is, for the other langs
-  to: "Dir" # [PLAYERNAME -> You]
-  from: "Du" # [You -> PLAYERNAME]
-
-permission:
+permissions:
   use: "bettermsg.use"
   reply: "bettermsg.reply"
   use-color: "bettermsg.color"
   reload: "bettermsg.reload"
 
-use-displayname: true
+
+### EXPERIMENTAL FEATURES: This features are not fully tested and may not work as expected! ###
+# DONT REQUEST SUPPORT IF THIS IS TRUE!
+use-displayname: false

@@ -24,11 +24,30 @@ commands:
       - rply
       - antworten
       - anwser
-  reloadmsg:
-    permission: BetterMSG.reload
-    description: reload the config.yml
-    usage: /reloadmsg
+  bettermsg:
+    permission: BetterMSG.maincmd
+    description: maincommand
+    usage: /bettermsg <subcommand>
     aliases:
-      - rlmsg
-      - rlbettermsg
-      - reloadbettermsg
+      - bmsg
+      - betterwhisper
+      - betterw
+      - betterdm
+      - betterpm
+      - bettertell
+      - betterreply
+      - betterr
+
+permissions:
+    BetterMSG.use:
+        description: Allows the player to use the /msg command
+        default: true
+    BetterMSG.reply:
+        description: Allows the player to use the /reply command
+        default: true
+    BetterMSG.color:
+        description: Allows the player to use colors in messages
+        default: op
+    BetterMSG.reload:
+        description: Allows the player to reload the plugin configuration
+        default: op
