@@ -66,7 +66,6 @@ public class MSGCommand implements CommandExecutor {
         target.sendMessage(ChatColor.translateAlternateColorCodes('&', formattedTargetMsg));
         target.playSound(target.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
 
-        // Nachricht an Sender senden - Format aus config
         String senderMsgFormat = util.getMessage("messages.sender-msg");
         String formattedSenderMsg = senderMsgFormat
                 .replace("%from%", senderName)
@@ -85,3 +84,4 @@ public class MSGCommand implements CommandExecutor {
         return Util.lastMessageMap.get(playerUUID);
     }
 }
+
