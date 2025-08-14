@@ -15,7 +15,7 @@ public final class BetterMSG extends JavaPlugin {
 
         saveDefaultConfig();
         Util util = new Util(this);
-        Util.getInstance().loadMessagesFile();
+        util.loadMessagesFile();
 
         getCommand("msg").setExecutor(new MSGCommand(this, util));
         getCommand("reply").setExecutor(new ReplyCommand(this, util));
