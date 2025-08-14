@@ -1,7 +1,7 @@
 package dev.larrox.bettermsg;
 
 import dev.larrox.bettermsg.commands.MSGCommand;
-import dev.larrox.bettermsg.commands.ReloadCommand;
+import dev.larrox.bettermsg.commands.BetterMSGCommand;
 import dev.larrox.bettermsg.commands.ReplyCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -14,16 +14,12 @@ public final class BetterMSG extends JavaPlugin {
         instance = this;
 
         saveDefaultConfig();
-        new Util(this);
+        Util util = new Util(this);
+        util.loadMessagesFile();
 
-        getCommand("msg").setExecutor(new MSGCommand());
-        getCommand("reply").setExecutor(new ReplyCommand());
-        getCommand("reloadmsg").setExecutor(new ReloadCommand());
-    }
-
-    @Override
-    public void onDisable() {
-        instance = null;
+        getCommand("msg").setExecutor(new MSGCommand(this, util));
+        getCommand("reply").setExecutor(new ReplyCommand(util));
+        getCommand("bettermsg").setExecutor(new BetterMSGCommand(this, util));
     }
 
     public static BetterMSG getInstance() {
