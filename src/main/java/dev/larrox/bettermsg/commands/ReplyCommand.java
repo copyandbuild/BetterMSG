@@ -16,10 +16,8 @@ public class ReplyCommand implements CommandExecutor {
 
     private final String COLOR_PERMISSION = BetterMSG.getInstance().getConfig().getString("permissions.use-color");
     private final Util util;
-    private final BetterMSG betterMSG;
 
     public ReplyCommand(BetterMSG betterMSG, Util util) {
-        this.betterMSG = betterMSG;
         this.util = util;
     }
 
@@ -80,3 +78,4 @@ public class ReplyCommand implements CommandExecutor {
         return true;
     }
 }
+
